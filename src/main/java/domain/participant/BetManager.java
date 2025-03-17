@@ -6,13 +6,7 @@ import java.util.Map;
 
 public class BetManager {
 
-    private final BlackjackGame blackjackGame;
-
-    public BetManager(BlackjackGame blackjackGame) {
-        this.blackjackGame = blackjackGame;
-    }
-
-    public Map<String, Double> blackjackBettingResult() {
+    public static Map<String, Double> blackjackBettingResult(BlackjackGame blackjackGame) {
         String dealerName = blackjackGame.dealerName();
         Map<String, Double> participantsEarnMoney = new LinkedHashMap<>(Map.of(dealerName, 0.0));
         BlackjackHands dealerHands = blackjackGame.dealerHands();
@@ -25,11 +19,12 @@ public class BetManager {
         return participantsEarnMoney;
     }
 
-    private double dealerProfit(Map<String, Double> participantsEarnMoney, double playerProfit, String dealerName) {
+    private static double dealerProfit(Map<String, Double> participantsEarnMoney, double playerProfit,
+                                       String dealerName) {
         return participantsEarnMoney.get(dealerName) - playerProfit;
     }
 
-    private double playerProfit(BlackjackBet playerBet, BlackjackHands cardSum, BlackjackHands dealerSum) {
+    private static double playerProfit(BlackjackBet playerBet, BlackjackHands cardSum, BlackjackHands dealerSum) {
         return playerBet.calculateEarnMoney(cardSum, dealerSum) - playerBet.betMoney();
     }
 }

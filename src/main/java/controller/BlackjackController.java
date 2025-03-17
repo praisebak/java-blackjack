@@ -55,6 +55,7 @@ public class BlackjackController {
         outputView.inputNames();
         List<String> names = inputView.inputNames();
         validateDuplicateNames(names);
+        return names;
     }
 
     private void validateDuplicateNames(List<String> names) {
@@ -68,13 +69,12 @@ public class BlackjackController {
         BlackjackDeck deck = new DeckGenerator().generateDeck(new BlackjackDrawStrategy(),
                 new BlackjackDeckGenerateStrategy());
         BlackjackGame blackjackGame = BlackjackGame.bettingBlackjackGame(deck, names, bets);
-        BetManager betManager = new BetManager(blackjackGame);
         outputView.printInitiateDraw(names);
         openFirstDealerCard(blackjackGame);
         openPlayerCards(blackjackGame);
         askPlayerDraw(blackjackGame);
         dealerHit(blackjackGame);
-        bettingBlackjackGameResult(blackjackGame, betManager);
+        bettingBlackjackGameResult(blackjackGame);
     }
 
     private void openFirstDealerCard(BlackjackGame blackjackGame) {
@@ -128,9 +128,9 @@ public class BlackjackController {
         }
     }
 
-    private void bettingBlackjackGameResult(BlackjackGame blackjackGame, BetManager betManager) {
+    private void bettingBlackjackGameResult(BlackjackGame blackjackGame) {
         openParticipantsCards(blackjackGame);
-        Map<String, Double> blackjackBettingResult = betManager.blackjackBettingResult();
+        Map<String, Double> blackjackBettingResult = BetManager.blackjackBettingResult(blackjackGame);
         outputView.printBettingBlackjackGameResult(blackjackBettingResult);
     }
 

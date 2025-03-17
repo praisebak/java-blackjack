@@ -30,8 +30,8 @@ public class BlackjackBetManagerTest {
                 new TestDeckGenerateStrategy(trumpCards));
 
         BlackjackGame blackjackGame = BlackjackGame.bettingBlackjackGame(deck, List.of("투다"), List.of(1000));
-        BetManager betManager = new BetManager(blackjackGame);
-        Map<String, Double> blackjackBettingResult = betManager.blackjackBettingResult();
+        BetManager betManager = new BetManager();
+        Map<String, Double> blackjackBettingResult = betManager.blackjackBettingResult(blackjackGame);
         Double earnMoney = blackjackBettingResult.get("투다");
         assertThat(earnMoney).isEqualTo(0);
     }
